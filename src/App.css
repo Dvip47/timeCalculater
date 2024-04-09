@@ -65,3 +65,10 @@
   height: 36px;
   padding: 4px;
 }
+.title {
+  font-size: 24px; /* Set font size for the title */
+}
+
+.label {
+  font-size: 16px; /* Set font size for the labels */
+}

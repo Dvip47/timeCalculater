@@ -3,12 +3,12 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Nav from 'react-bootstrap/Nav';
 import WeeklyHours from './Weekly';
+import DailyReport from './Daily';
 
 function AllTab() {
     const button = [
         { 'name': 'Daily', 'code': 'daily' },
         { 'name': 'Weekly', 'code': 'weekly' },
-        { 'name': 'Month', 'code': 'month' },
     ]
     const [selectedButton, setSelectedButton] = useState('weekly');
     const handleChange = (code) => {
@@ -29,6 +29,9 @@ function AllTab() {
             </Nav>
             {selectedButton == 'weekly' &&
                 <WeeklyHours />
+            }
+            {selectedButton == 'daily' &&
+                <DailyReport />
             }
         </>
     )

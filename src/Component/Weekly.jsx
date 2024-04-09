@@ -6,17 +6,17 @@ import Col from 'react-bootstrap/Col';
 import Chart from 'chart.js';
 
 const WeeklyHours = () => {
-    const [sleepHours, setSleepHours] = useState();
-    const [officeHours, setOfficeHours] = useState();
-    const [isOfficeChecked, setIsOfficeChecked] = useState(true);
+    const [sleepHours, setSleepHours] = useState(() => parseInt(localStorage.getItem('sleepHours')) || 5);
+    const [officeHours, setOfficeHours] = useState(() => parseInt(localStorage.getItem('officeHours')) || 0);
+    const [isOfficeChecked, setIsOfficeChecked] = useState(() => localStorage.getItem('isOfficeChecked') === 'true');
     const [isToggleOpen, setIsToggleOpen] = useState(false);
-    const [miscellaneousHours, setMiscellaneousHours] = useState(2);
+    const [miscellaneousHours, setMiscellaneousHours] = useState(() => parseInt(localStorage.getItem('miscellaneousHours')) || 2);
     const [chartData, setChartData] = useState(null);
-    let remainingHours = 0;
+
     useEffect(() => {
         const totalHoursInWeek = 168;
-        const totalSleepHours = sleepHours?7 * sleepHours:0;
-        remainingHours = totalHoursInWeek - totalSleepHours;
+        const totalSleepHours = 7 * sleepHours;
+        const remainingHours = totalHoursInWeek - totalSleepHours;
 
         let officeHoursInWeek = 0;
         if (isOfficeChecked) {
@@ -49,6 +49,12 @@ const WeeklyHours = () => {
         };
 
         setChartData(data);
+
+        // Update localStorage
+        localStorage.setItem('sleepHours', sleepHours);
+        localStorage.setItem('officeHours', officeHours);
+        localStorage.setItem('isOfficeChecked', isOfficeChecked);
+        localStorage.setItem('miscellaneousHours', miscellaneousHours);
     }, [sleepHours, officeHours, isOfficeChecked, miscellaneousHours]);
 
     useEffect(() => {
@@ -151,7 +157,7 @@ const WeeklyHours = () => {
                             )}
                         </Col>
                     </Row>
-                </Col>
+                    </Col>
                 <Col>
                     <canvas id="chart" />
                 </Col>

@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.greeting-container {
+  display: flex;
+  align-items: center;
+}
+
+.greeting {
+  margin: 0;
+}
+
+.name-input {
+  height: 1.5em;
+  margin-left: 0.5em;
+}
+
+.edit-button,
+.save-button {
+  margin-left: 0.5em;
+}
+.toggle-content {
+  /*  border: 4px solid ; Light border color */
+  padding: 10px; /* Add padding */
+  margin-top: 5px; /* Add some margin to separate from the icon */
+  background-color: #f856d3;
+  font-size: x-small;
+  border-radius: 5px;
+  height: 36px;
+  padding: 4px;
+}

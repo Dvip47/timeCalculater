@@ -151,8 +151,6 @@ const WeeklyHours = () => {
                             )}
                         </Col>
                     </Row>
-
-                    <h3>Remaining Hours for Study: {Math.max(remainingHours, 0)} hours</h3>
                 </Col>
                 <Col>
                     <canvas id="chart" />

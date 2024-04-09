@@ -10,6 +10,8 @@ const DailyReport = () => {
     const [exerciseHours, setExerciseHours] = useState(() => parseFloat(localStorage.getItem('exerciseHours')) || 0);
     const [workHours, setWorkHours] = useState(() => parseInt(localStorage.getItem('workHours')) || 0);
     const [otherHours, setOtherHours] = useState(() => parseInt(localStorage.getItem('otherHours')) || 0);
+    const [sleppHours, setSleppHours] = useState(() => parseInt(localStorage.getItem('sleppHours')) || 0);
+
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
@@ -17,15 +19,16 @@ const DailyReport = () => {
         const remainingHours = totalHoursInDay - (studyHours + exerciseHours + workHours + otherHours);
 
         const data = {
-            labels: ['Study', 'Exercise', 'Work', 'Other', 'Remaining'],
+            labels: ['Study', 'Exercise', 'Work/School', 'Sleep','Other'],
             datasets: [{
                 label: 'Hours',
-                data: [studyHours, exerciseHours, workHours, otherHours, remainingHours],
+                data: [remainingHours, exerciseHours, workHours,sleppHours, otherHours],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
                 ],
                 borderColor: [
@@ -33,6 +36,7 @@ const DailyReport = () => {
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
                     'rgba(153, 102, 255, 1)',
                 ],
                 borderWidth: 1,
@@ -46,7 +50,9 @@ const DailyReport = () => {
         localStorage.setItem('exerciseHours', exerciseHours);
         localStorage.setItem('workHours', workHours);
         localStorage.setItem('otherHours', otherHours);
-    }, [studyHours, exerciseHours, workHours, otherHours]);
+        localStorage.setItem('sleppHours', sleppHours);
+        
+    }, [studyHours, exerciseHours, workHours,sleppHours, otherHours]);
 
     useEffect(() => {
         const ctx = document.getElementById('chart');
@@ -78,44 +84,44 @@ const DailyReport = () => {
         <Container className="mt-5">
             <Row>
                 <Col>
-                    <h2 className="title">Daily Report</h2> {/* Apply custom class for title */}
-                    <Form.Group>
+                    <h2 className="title">Daily Report</h2>
+                    <Form.Group className="mt-2">
                         <Row>
                             <Col>
-                                <Form.Label className="label">Study (Max 15h):</Form.Label> {/* Apply custom class for label */}
-                            </Col>
-                            <Col>
-                                <Form.Control type="number" value={studyHours} onChange={(e) => handleInputChange(e, setStudyHours, 15)} min="0" max="15" />
-                            </Col>
-                        </Row>
-                    </Form.Group>
-                    <Form.Group>
-                        <Row>
-                            <Col>
-                                <Form.Label className="label">Exercise (Max 1.5h):</Form.Label> {/* Apply custom class for label */}
+                                <Form.Label className="label">Exercise (Max 1.5h):</Form.Label>
                             </Col>
                             <Col>
                                 <Form.Control type="number" value={exerciseHours} onChange={(e) => handleInputChange(e, setExerciseHours, 1.5)} step="0.5" min="0" max="1.5" />
                             </Col>
                         </Row>
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mt-2">
                         <Row>
                             <Col>
-                                <Form.Label className="label">Work (Max 3h):</Form.Label> {/* Apply custom class for label */}
+                                <Form.Label className="label">Work/School (Max 6h):</Form.Label>
                             </Col>
                             <Col>
-                                <Form.Control type="number" value={workHours} onChange={(e) => handleInputChange(e, setWorkHours, 3)} min="0" max="3" />
+                                <Form.Control type="number" value={workHours} onChange={(e) => handleInputChange(e, setWorkHours, 6)} min="0" max="6" />
                             </Col>
                         </Row>
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mt-2">
                         <Row>
                             <Col>
-                                <Form.Label className="label">Other (Max 7h):</Form.Label> {/* Apply custom class for label */}
+                                <Form.Label className="label">Sleep (Max 6.5h):</Form.Label>
                             </Col>
                             <Col>
-                                <Form.Control type="number" value={otherHours} onChange={(e) => handleInputChange(e, setOtherHours, 7)} min="0" max="7" />
+                                <Form.Control type="number" value={sleppHours} onChange={(e) => handleInputChange(e, setSleppHours, 6.5)} min="0" max="6.5" />
+                            </Col>
+                        </Row>
+                    </Form.Group>
+                    <Form.Group className="mt-2">
+                        <Row>
+                            <Col>
+                                <Form.Label className="label">Other (Max 15h):</Form.Label>
+                            </Col>
+                            <Col>
+                                <Form.Control type="number" value={otherHours} onChange={(e) => handleInputChange(e, setOtherHours, 15)} min="0" max="15" />
                             </Col>
                         </Row>
                     </Form.Group>

@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Chart from 'chart.js';
 
 const WeeklyHours = () => {
-    const [sleepHours, setSleepHours] = useState(5);
+    const [sleepHours, setSleepHours] = useState();
     const [officeHours, setOfficeHours] = useState();
     const [isOfficeChecked, setIsOfficeChecked] = useState(true);
     const [isToggleOpen, setIsToggleOpen] = useState(false);
@@ -15,7 +15,7 @@ const WeeklyHours = () => {
     let remainingHours = 0;
     useEffect(() => {
         const totalHoursInWeek = 168;
-        const totalSleepHours = 7 * sleepHours;
+        const totalSleepHours = sleepHours?7 * sleepHours:0;
         remainingHours = totalHoursInWeek - totalSleepHours;
 
         let officeHoursInWeek = 0;

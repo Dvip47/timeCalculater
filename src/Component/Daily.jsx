@@ -74,6 +74,10 @@ const DailyReport = () => {
     }, [chartData]);
 
     const handleInputChange = (e, setter, maxHours) => {
+        if(e.target.value ==''){
+            setter('');
+            return;
+        }
         const hours = parseFloat(e.target.value);
         if (!isNaN(hours) && hours >= 0 && hours <= maxHours) {
             setter(hours);
